@@ -20,6 +20,7 @@
       Gửi
     </button>
   </div>
+  
 </template>
 
 <script>
@@ -37,22 +38,30 @@ export default {
     };
   },
   methods: {
-    handleFile(event) {
-      this.file = event.target.files[0];
-    },
-    async submit() {
-      const formData = new FormData();
-      formData.append('image', this.file);
-
-      try {
-        await axios.post(this.endpoint, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        alert(`${this.title} upload thành công!`);
-        this.file = null;
+  handleFile(event) {
+    this.file = event.target.files[0];
+  },
+  async submit() {
+    const formData = new FormData();
+    formData.append('image', this.file);
+    try {
+      await axios.post(this.endpoint, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      alert(`${this.title} upload thành công!`);
+      this.file = null;
+    } catch (err) {
+      console.error(err);
+      alert(`${this.title} upload thất bại.`);
+    }
+  },
+  async analyze() {
+    try {
+      await axios.post('http://localhost:3000/analyze-hdtt');
+      alert('Gửi ảnh hdtt lên n8n thành công!');
       } catch (err) {
-        console.error(err);
-        alert(`${this.title} upload thất bại.`);
+      console.error(err);
+      alert('Gửi ảnh hdtt thất bại.');
       }
     },
   },

@@ -8,6 +8,7 @@
         <UploadPanel title="Hóa đơn chuyển khoản" endpoint="http://localhost:3000/upload-origin" />
       </div>
     </div>
+    
   </div>
 </template>
 
