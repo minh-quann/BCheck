@@ -35,7 +35,7 @@ async function checkTableExists(tableName) {
 async function syncModels() {
   try {
     await sequelize.authenticate();
-    console.log("✅ Kết nối CSDL thành công!");
+    console.log("Kết nối CSDL thành công!");
 
     for (const { name, model } of models) {
       const tableName = model.getTableName();
@@ -47,19 +47,19 @@ async function syncModels() {
       const existedAfter = await checkTableExists(tableName);
 
       if (!existedBefore && existedAfter) {
-        console.log(`🆕 ${name}: Đã tạo bảng '${tableName}'.`);
+        console.log(`${name}: Đã tạo bảng '${tableName}'.`);
       } else if (existedBefore) {
         console.log(
-          `♻️  ${name}: Bảng '${tableName}' đã có, đã kiểm tra và cập nhật nếu cần.`
+          `${name}: Bảng '${tableName}' đã có, đã kiểm tra và cập nhật nếu cần.`
         );
       } else {
         console.log(`⚠️  ${name}: Trạng thái không xác định.`);
       }
     }
 
-    console.log("✅ Hoàn tất xử lý các bảng.");
+    console.log("Hoàn tất xử lý các bảng.");
   } catch (err) {
-    console.error("❌ Lỗi kết nối hoặc tạo bảng:", err);
+    console.error("Lỗi kết nối hoặc tạo bảng:", err);
   }
 }
 
