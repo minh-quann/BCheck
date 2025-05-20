@@ -53,14 +53,15 @@ async function syncModels() {
           `${name}: Bảng '${tableName}' đã có, đã kiểm tra và cập nhật nếu cần.`
         );
       } else {
-        console.log(`⚠️  ${name}: Trạng thái không xác định.`);
+        console.log(` ${name}: Trạng thái không xác định.`);
       }
     }
 
     console.log("Hoàn tất xử lý các bảng.");
   } catch (err) {
     console.error("Lỗi kết nối hoặc tạo bảng:", err);
+    throw err; 
   }
 }
 
-syncModels();
+module.exports = syncModels;
