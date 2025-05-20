@@ -9,16 +9,17 @@
         accept="image/*" 
         class="form-control" 
         @change="handleFile"
+        multiple
       />
     </div>
 
     <button 
-      class="btn btn-primary" 
-      @click="submit" 
-      :disabled="!file"
-    >
-      Gửi
-    </button>
+  class="btn btn-primary" 
+  @click="submit" 
+  :disabled="!files.length"
+>
+  Gửi
+</button>
   </div>
   
 </template>
@@ -30,38 +31,34 @@ export default {
   name: 'UploadPanel',
   props: {
     title: String,
-    endpoint: String, 
+    endpoint: String,
   },
   data() {
     return {
-      file: null,
+      files: [], 
     };
   },
   methods: {
-  handleFile(event) {
-    this.file = event.target.files[0];
-  },
-  async submit() {
-    const formData = new FormData();
-    formData.append('image', this.file);
-    try {
-      await axios.post(this.endpoint, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+    handleFile(event) {
+      this.files = Array.from(event.target.files);
+    },
+    async submit() {
+      if (!this.files.length) return;
+
+      const formData = new FormData();
+      this.files.forEach((file) => {
+        formData.append('image', file);
       });
-      alert(`${this.title} upload thành công!`);
-      this.file = null;
-    } catch (err) {
-      console.error(err);
-      alert(`${this.title} upload thất bại.`);
-    }
-  },
-  async analyze() {
-    try {
-      await axios.post('http://localhost:3000/analyze-hdtt');
-      alert('Gửi ảnh hdtt lên n8n thành công!');
+
+      try {
+        await axios.post(this.endpoint, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        alert(`${this.title} upload thành công!`);
+        this.files = [];
       } catch (err) {
-      console.error(err);
-      alert('Gửi ảnh hdtt thất bại.');
+        console.error(err);
+        alert(`${this.title} upload thất bại.`);
       }
     },
   },

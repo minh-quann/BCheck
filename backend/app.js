@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
     cb(null, `${prefix}${ext}`);
   },
 });
+
 const upload = multer({ storage });
 
 app.post('/upload-request', upload.single('image'), async (req, res) => {
