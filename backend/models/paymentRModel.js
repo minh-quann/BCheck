@@ -1,37 +1,41 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/db');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../connect/db_connection");
 
-const PaymentR = sequelize.define('PaymentR', {
+const PaymentR = sequelize.define(
+  "PaymentR",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     job: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: true
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     payer: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    }
-}, {
-    tableName: 'payment_r',
-    timestamps: false
-});
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+  },
+  {
+    tableName: "payment_r",
+    timestamps: false,
+  }
+);
 
 module.exports = PaymentR;

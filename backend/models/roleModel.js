@@ -1,30 +1,34 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/db');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../connect/db_connection");
 
-const Role = sequelize.define('Role', {
+const Role = sequelize.define(
+  "Role",
+  {
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true,
     },
     name: {
-        type: DataTypes.STRING(100),
-        allowNull: false
+      type: DataTypes.STRING(100),
+      allowNull: false,
     },
     created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    }
-}, {
-    tableName: 'roles',
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+  },
+  {
+    tableName: "roles",
     timestamps: false,
-    underscored: true
-});
+    underscored: true,
+  }
+);
 
 module.exports = Role;

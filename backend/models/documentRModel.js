@@ -1,35 +1,39 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/db');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../connect/db_connection");
 
-const DocumentR = sequelize.define('DocumentR', {
+const DocumentR = sequelize.define(
+  "DocumentR",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     document: {
-        type: DataTypes.BLOB('long'),
-        allowNull: false
+      type: DataTypes.BLOB("long"),
+      allowNull: false,
     },
     status: {
-        type: DataTypes.TEXT,
-        allowNull: false
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
     reject_reason: {
-        type: DataTypes.TEXT,
-        allowNull: true
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
     updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-    }
-}, {
-    tableName: 'document_r',
-    timestamps: false
-});
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+  },
+  {
+    tableName: "document_r",
+    timestamps: false,
+  }
+);
 
 module.exports = DocumentR;
