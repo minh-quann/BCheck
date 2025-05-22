@@ -1,5 +1,5 @@
 const express = require('express');
-const syncModels = require('./config/sync');
+const syncModels = require('./models/syncModel');
 
 const app = express();
 const port = 3000;

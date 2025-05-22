@@ -1,13 +1,13 @@
-const sequelize = require("./db_connection");
+const sequelize = require("../config/db_connection");
 const { Sequelize } = require("sequelize");
 
 // Import models
-const roleModel = require("../models/roleModel");
-const userModel = require("../models/userModel");
-const documentRModel = require("../models/documentRModel");
-const paymentDModel = require("../models/paymentDModel");
-const paymentRModel = require("../models/paymentRModel");
-const paymentRDModel = require("../models/paymentRDModel");
+const roleModel = require("./roleModel");
+const userModel = require("./userModel");
+const documentRModel = require("./documentRModel");
+const paymentDModel = require("./paymentDModel");
+const paymentRModel = require("./paymentRModel");
+const paymentRDModel = require("./paymentRDModel");
 
 const models = [
   { name: "roleModel", model: roleModel },
