@@ -1,6 +1,7 @@
 import express from 'express';
 import syncModels from './models/syncModel.js';
 import roleRouter from './routers/roleRouter.js';
+import jobRouter from './routers/jobRouter.js';
 import cors from 'cors';
 
 const app = express();
@@ -10,7 +11,8 @@ app.use(express.json());
 app.use(cors());
 
 // Định tuyến
-app.use('/api/role', roleRouter);
+app.use('/api/roles', roleRouter);
+app.use("/api/jobs", jobRouter);
 
 // Đồng bộ model và khởi chạy server
 (async () => {

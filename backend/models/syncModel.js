@@ -8,10 +8,14 @@ import documentRModel from "./documentRModel.js";
 import paymentDModel from "./paymentDModel.js";
 import paymentRModel from "./paymentRModel.js";
 import paymentRDModel from "./paymentRDModel.js";
+import Job from "./jobModel.js";
+import JobDocument from "./jobdocumentModel.js";
 
 const models = [
   { name: "roleModel", model: roleModel },
   { name: "userModel", model: userModel },
+  { name: "jobModel", model: Job },
+  { name: "jobdocumentModel", model: JobDocument },
   { name: "documentRModel", model: documentRModel },
   { name: "paymentDModel", model: paymentDModel },
   { name: "paymentRModel", model: paymentRModel },
