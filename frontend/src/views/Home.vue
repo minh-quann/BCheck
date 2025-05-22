@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import UploadPanel from '@/components/UploadPanel.vue';
+import UploadPanel from './UploadPanel.vue';
 
 export default {
   components: {

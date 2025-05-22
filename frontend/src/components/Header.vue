@@ -1,106 +1,99 @@
 <template>
-    <header class="header">
-        <div class="container">
-            <div class="left">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-            </div>
+  <header class="header">
+    <div class="container">
+      <nav class="nav-left">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Contact</a>
+      </nav>
 
-            <div class="right">
-                <a href="#">Đăng nhập</a>
-                <a href="#">Đăng ký</a>
-            </div>
-
-            <div class="mobile-menu" @click="toggleMenu">
-                ☰
-            </div>
-        </div>
-
-        <div class="mobile-dropdown" v-if="isOpen">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Đăng nhập</a>
-            <a href="#">Đăng ký</a>
-        </div>
-    </header>
+      <nav class="nav-right">
+        <a href="#" class="nav-link login">Đăng nhập</a>
+        <a href="#" class="nav-link signup">Đăng ký</a>
+      </nav>
+    </div>
+  </header>
 </template>
 
 <script>
 export default {
-    name: 'Header',
-    data() {
-        return {
-            isOpen: false,
-        };
-    },
-    methods: {
-        toggleMenu() {
-            this.isOpen = !this.isOpen;
-        },
-    },
+  name: "Header",
 };
 </script>
 
 <style scoped>
 .header {
-    width: 100%;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
+  width: auto;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 100;
 }
 
 .container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100vw; 
 }
 
-.left a,
-.right a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #333;
+.nav-left {
+  display: flex;
+  align-items: center;
 }
 
-.mobile-menu {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  margin: 0 15px;
+  position: relative;
+  transition: color 0.3s ease;
+  padding: 6px 0;
 }
 
-.mobile-dropdown {
-    display: none;
-    flex-direction: column;
-    background: #fff;
-    border-top: 1px solid #ccc;
-    padding: 10px;
+.nav-link:hover {
+  color: #007bff;
 }
 
-.mobile-dropdown a {
-    margin: 5px 0;
-    color: #333;
-    text-decoration: none;
+.nav-link.login {
+  color: #007bff;
+  font-weight: 600;
+  border: 1.5px solid #007bff;
+  padding: 6px 14px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+.nav-link.login:hover {
+  background-color: #007bff;
+  color: white;
+}
 
-    .left,
-    .right {
-        display: none;
-    }
+.nav-link.signup {
+  color: white;
+  background-color: #28a745;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 5px;
+  margin-left: 12px;
+  transition: background-color 0.3s ease;
+}
 
-    .mobile-menu {
-        display: block;
-    }
-
-    .mobile-dropdown {
-        display: flex;
-    }
+.nav-link.signup:hover {
+  background-color: #218838;
 }
 </style>
