@@ -1,13 +1,13 @@
-const sequelize = require("../config/db_connection");
-const { Sequelize } = require("sequelize");
+import sequelize from "../config/db_connection.js";
+import { Sequelize } from "sequelize";
 
 // Import models
-const roleModel = require("./roleModel");
-const userModel = require("./userModel");
-const documentRModel = require("./documentRModel");
-const paymentDModel = require("./paymentDModel");
-const paymentRModel = require("./paymentRModel");
-const paymentRDModel = require("./paymentRDModel");
+import roleModel from "./roleModel.js";
+import userModel from "./userModel.js";
+import documentRModel from "./documentRModel.js";
+import paymentDModel from "./paymentDModel.js";
+import paymentRModel from "./paymentRModel.js";
+import paymentRDModel from "./paymentRDModel.js";
 
 const models = [
   { name: "roleModel", model: roleModel },
@@ -64,4 +64,4 @@ async function syncModels() {
   }
 }
 
-module.exports = syncModels;
+export default syncModels;

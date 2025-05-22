@@ -1,11 +1,13 @@
-const express = require('express');
-const syncModels = require('./models/syncModel');
-const roleRouter = require('./routes/role');
+import express from 'express';
+import syncModels from './models/syncModel.js';
+import roleRouter from './routers/roleRouter.js';
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
-const cors = require('cors');
+
 app.use(express.json());
+app.use(cors());
 
 // Định tuyến
 app.use('/api/role', roleRouter);

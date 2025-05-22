@@ -1,7 +1,7 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db_connection");
-const PaymentR = require("./paymentRModel");
-const PaymentD = require("./paymentDModel");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db_connection.js";
+import PaymentR from "./paymentRModel.js";
+import PaymentD from "./paymentDModel.js";
 
 const PaymentRD = sequelize.define(
   "PaymentRD",
@@ -48,4 +48,4 @@ const PaymentRD = sequelize.define(
   }
 );
 
-module.exports = PaymentRD;
+export default PaymentRD;

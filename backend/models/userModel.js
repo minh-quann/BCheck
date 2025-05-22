@@ -1,6 +1,6 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db_connection");
-const Role = require("./roleModel");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/db_connection.js";
+import Role from "./roleModel.js";
 
 const User = sequelize.define(
   "User",
@@ -48,4 +48,4 @@ const User = sequelize.define(
 // Association
 User.belongsTo(Role, { foreignKey: "role_id", as: "role" });
 
-module.exports = User;
+export default User;
