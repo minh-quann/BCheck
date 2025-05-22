@@ -1,18 +1,18 @@
 <template>
   <Header />
-  <Home />
+  <router-view />
   <Footer />
 </template>
 
 <script>
-import Home from './views/Home.vue';
 import Footer from './components/Footer.vue';
-import Header  from './components/Header.vue';
+import Header from './components/Header.vue';
 
 export default {
-  components: { Home, Header , Footer },
+  components: { Header, Footer },
 };
 </script>
+
 <style>
 html, body {
   margin: 0;

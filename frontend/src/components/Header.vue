@@ -2,8 +2,8 @@
   <header class="header">
     <div class="container">
       <nav class="nav-left">
-        <a href="#" class="nav-link">Home</a>
-        <a href="#" class="nav-link">About</a>
+        <router-link to="/" class="nav-link">Home</router-link>
+        <router-link to="/upload" class="nav-link">KT</router-link>
         <a href="#" class="nav-link">Contact</a>
       </nav>
 
