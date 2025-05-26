@@ -8,11 +8,11 @@ const JobDocument = sequelize.define("JobDocument", {
         autoIncrement: true,
         primaryKey: true,
     },
-    image1_url: {
+    invoice_url: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    image2_url: {
+    receipt_url: {
         type: DataTypes.STRING,
         allowNull: false,
     },

@@ -12,6 +12,7 @@ uploads
 dist
 dist-ssr
 *.local
+config/db_connection.js
 
 # Editor directories and files
 .vscode/*

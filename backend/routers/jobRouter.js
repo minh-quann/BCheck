@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getAllJobs,
+  checkAndComparePaymentDocument,
   createJobWithDocuments,
   getJobById,
   deleteJob,
@@ -13,8 +14,14 @@ router.get("/", getAllJobs);
 router.get("/:id", getJobById);
 router.post(
   "/multiple-docs",
-  upload.any(), 
+  upload.any(),
   createJobWithDocuments
+);
+
+router.post(
+  "/check-documents",
+  upload.any(),
+  checkAndComparePaymentDocument
 );
 router.delete("/:id", deleteJob);
 
