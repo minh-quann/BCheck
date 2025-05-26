@@ -9,10 +9,15 @@ const routes = [
     name: 'Home',
     component: () => import('@/views/Home.vue')
   },
-  {
+  // {
+  //   path: '/upload',
+  //   name: 'UploadPanel',
+  //   component: () => import('@/views/UploadPanel.vue')
+  // },
+    {
     path: '/upload',
-    name: 'UploadPanel',
-    component: () => import('@/views/UploadPanel.vue')
+    name: 'DocumentForm',
+    component: () => import('@/components/DocumentForm.vue')
   },
 ]
 
