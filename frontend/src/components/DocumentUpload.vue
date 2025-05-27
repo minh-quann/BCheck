@@ -262,4 +262,53 @@ const isSuccess = computed(() => props.status)
 .remove-img-btn svg {
   display: block;
 }
+.message {
+  margin: 18px auto 0 auto;
+  padding: 14px 24px 14px 48px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  display: flex;
+  align-items: center;
+  background: #f8f8f8;
+  border-left: 6px solid #bbb;
+  color: #444;
+  min-height: 48px;
+}
+
+.message.success {
+  border-left-color: #4caf50;
+  background: #eafbe7;
+  color: #256029;
+}
+
+.message.error {
+  border-left-color: #ff4444;
+  background: #fff0f0;
+  color: #b71c1c;
+}
+
+.message::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+}
+
+.message.success::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234caf50" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" stroke="%234caf50" fill="%23eafbe7"/><path d="M7 13l3 3 7-7" stroke="%234caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.message.error::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23ff4444" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" stroke="%23ff4444" fill="%23fff0f0"/><path d="M8 8l8 8M16 8l-8 8" stroke="%23ff4444" stroke-width="2" stroke-linecap="round"/></svg>');
+}
 </style>
