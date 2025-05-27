@@ -4,10 +4,6 @@ import { Sequelize } from "sequelize";
 // Import models
 import roleModel from "./roleModel.js";
 import userModel from "./userModel.js";
-import documentRModel from "./documentRModel.js";
-import paymentDModel from "./paymentDModel.js";
-import paymentRModel from "./paymentRModel.js";
-import paymentRDModel from "./paymentRDModel.js";
 import Job from "./jobModel.js";
 import JobDocument from "./jobdocumentModel.js";
 
@@ -16,10 +12,6 @@ const models = [
   { name: "userModel", model: userModel },
   { name: "jobModel", model: Job },
   { name: "jobdocumentModel", model: JobDocument },
-  { name: "documentRModel", model: documentRModel },
-  { name: "paymentDModel", model: paymentDModel },
-  { name: "paymentRModel", model: paymentRModel },
-  { name: "paymentRDModel", model: paymentRDModel },
 ];
 
 async function checkTableExists(tableName) {
@@ -46,7 +38,6 @@ async function syncModels() {
 
       const existedBefore = await checkTableExists(tableName);
 
-      await model.sync({ alter: true });
 
       const existedAfter = await checkTableExists(tableName);
 

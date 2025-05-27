@@ -4,8 +4,6 @@ import fetch from "node-fetch";
 import { FormData, File } from 'formdata-node';
 import fs from "fs/promises";
 
-
-
 export const getAllJobs = async (req, res) => {
   try {
     const jobs = await Job.findAll({
@@ -49,25 +47,23 @@ export const checkAndComparePaymentDocument = async (req, res) => {
       formData.append('startDate', start_date);
       formData.append('endDate', end_date);
 
-      const invoiceBuffer = await fs.readFile(group.invoice.path);
-      const invoiceFile = new File([invoiceBuffer], group.invoice.originalname, {
-        type: group.invoice.mimetype,
+     formData.append('invoice', group.invoice.buffer, {
+        filename: group.invoice.originalname,
+        contentType: group.invoice.mimetype,
       });
-      formData.append("invoice", invoiceFile);
 
-      const receiptBuffer = await fs.readFile(group.receipt.path);
-      const receiptFile = new File([receiptBuffer], group.receipt.originalname, {
-        type: group.receipt.mimetype,
+      formData.append('receipt', group.receipt.buffer, {
+        filename: group.receipt.originalname,
+        contentType: group.receipt.mimetype,
       });
-      formData.append("receipt", receiptFile);
 
       const endpoint = 'https://tr4in.app.n8n.cloud/webhook/upload';
       try {
         const response = await fetch(endpoint, {
           method: 'POST',
           body: formData,
+          headers: formData.getHeaders(),
         })
-
         const data = await response.json();
         results.push({
           index,
