@@ -34,8 +34,9 @@
     </div>
 
     <div class="form-row buttons-row">
-      <button type="submit" class="btn primary">Gửi</button>
       <button type="button" class="btn secondary" @click="addPanel">Thêm</button>
+      <button type="submit" class="btn primary">Kiểm tra</button>
+      
     </div>
 
   </form>
@@ -123,8 +124,9 @@ async function submitForm() {
 
 <style scoped>
 .form-container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: auto;
+  margin-top: 2%;
   padding: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -136,17 +138,23 @@ async function submitForm() {
   flex-direction: column;
 }
 
-label {
+.label {
   margin-bottom: 6px;
   font-weight: 600;
 }
 
-input[type="text"],
-input[type="date"] {
-  padding: 8px;
-  font-size: 1rem;
+.custom-date-input {
+  width: 100%;
+  padding: 8px 36px 8px 8px;
+  font-size: 1.1rem;
+  border-radius: 6px;
   border: 1px solid #aaa;
-  border-radius: 4px;
+}
+
+.custom-calendar {
+  border-radius: 14px;
+  font-size: 1.1rem;
+  min-width: 320px;
 }
 
 .form-row {
@@ -165,25 +173,51 @@ input[type="date"] {
 
 .buttons-row {
   justify-content: space-between;
+  display: flex;
+  gap: 16px;
 }
 
 .btn {
-  padding: 10px 24px;
-  font-size: 1rem;
+  padding: 12px 32px;
+  font-size: 1.08rem;
   cursor: pointer;
-  border-radius: 4px;
-  border: 1px solid transparent;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.15s;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
 }
 
 .btn.primary {
   background-color: #1976d2;
-  color: white;
+  color: #fff;
   border-color: #1976d2;
 }
 
+.btn.primary:hover {
+  background-color: #1251a3;
+  color: #fff;
+  border-color: #1251a3;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.15);
+}
+
 .btn.secondary {
-  background-color: transparent;
+  background-color: #fff;
   color: #1976d2;
   border-color: #1976d2;
+}
+
+.btn.secondary:hover {
+  background-color: #e3f0fd;
+  color: #1251a3;
+  border-color: #1251a3;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.10);
 }
 </style>
