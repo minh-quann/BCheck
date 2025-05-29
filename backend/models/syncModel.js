@@ -38,24 +38,21 @@ async function syncModels() {
 
       const existedBefore = await checkTableExists(tableName);
 
+      await model.sync();
 
       const existedAfter = await checkTableExists(tableName);
 
       if (!existedBefore && existedAfter) {
         console.log(`${name}: Đã tạo bảng '${tableName}'.`);
-      } else if (existedBefore) {
-        console.log(
-          `${name}: Bảng '${tableName}' đã có, đã kiểm tra và cập nhật nếu cần.`
-        );
-      } else {
-        console.log(` ${name}: Trạng thái không xác định.`);
+      } else if (!existedAfter) {
+        console.log(`${name}: Trạng thái không xác định.`);
       }
     }
 
     console.log("Hoàn tất xử lý các bảng.");
   } catch (err) {
     console.error("Lỗi kết nối hoặc tạo bảng:", err);
-    throw err; 
+    throw err;
   }
 }
 
