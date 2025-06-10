@@ -11,6 +11,10 @@ const Job = sequelize.define("Job", {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
+    job_description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
     start_date: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -22,7 +26,7 @@ const Job = sequelize.define("Job", {
     status: { 
         type: DataTypes.STRING(50),
         allowNull: false,
-        defaultValue: "chưa xử lý", 
+        defaultValue: "pending", 
     },
 }, {
     tableName: "jobs",
