@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-    <Header />
+    <Header v-if="!isAdminRoute" />
     <div class="main-content">
       <router-view /> 
     </div>
-    <Footer />
+    <Footer v-if="!isAdminRoute" />
   </div>
 </template>
 
-<script>
+<script setup>
 import Footer from './components/Footer.vue';
 import Header from './components/Header.vue';
-export default {
-  components: { Header, Footer },
-};
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isAdminRoute = computed(() => {
+  return route.path.includes('/admin');
+});
 </script>
 
 <style>

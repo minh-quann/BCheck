@@ -99,3 +99,45 @@ export const deleteUser = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Change password
+export const changePassword = async (req, res) => {
+    try {
+        console.log('Change password request:', {
+            userId: req.user?.id,
+            body: req.body
+        });
+
+        const { currentPassword, newPassword } = req.body;
+        
+        if (!req.user || !req.user.id) {
+            console.error('No user ID in request');
+            return res.status(401).json({ message: 'User not authenticated' });
+        }
+
+        const userId = req.user.id;
+        const user = await User.findByPk(userId);
+        if (!user) {
+            console.error('User not found:', userId);
+            return res.status(404).json({ message: "User not found" });
+        }
+        const isMatch = await bcrypt.compare(currentPassword, user.password);
+        if (!isMatch) {
+            console.error('Current password mismatch for user:', userId);
+            return res.status(400).json({ message: "Password is incorrect" });
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        await user.update({ password: hashedPassword });
+        console.log('Password updated successfully for user:', userId);
+
+        res.json({ message: "Change password successful" });
+    } catch (error) {
+        console.error('Change password error:', error);
+        res.status(500).json({ 
+            message: "Server error", 
+            error: error.message,
+            details: error.stack 
+        });
+    }
+};

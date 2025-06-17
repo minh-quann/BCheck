@@ -5,21 +5,22 @@ getUsers,
 getUserById,
 updateUser,
 deleteUser,
-loginUser
+loginUser,
+changePassword
 } from "../controllers/userController.js";
+import { authenticateToken } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/", createUser);
-
-router.get("/", getUsers);
-
-router.get("/:id", getUserById);
-
-router.put("/:id", updateUser);
-
-router.delete("/:id", deleteUser);
-
+// Public routes
+router.post("/register", createUser);
 router.post("/login", loginUser);
+
+// Protected routes
+router.get("/", authenticateToken, getUsers);
+router.post("/change-password", authenticateToken, changePassword);
+router.get("/:id", authenticateToken, getUserById);
+router.put("/:id", authenticateToken, updateUser);
+router.delete("/:id", authenticateToken, deleteUser);
 
 export default router;

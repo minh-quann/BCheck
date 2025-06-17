@@ -9,7 +9,6 @@
 
       <nav class="nav-right">
         <a href="#" class="nav-link login">Đăng nhập</a>
-        <a href="#" class="nav-link signup">Đăng ký</a>
       </nav>
     </div>
   </header>
