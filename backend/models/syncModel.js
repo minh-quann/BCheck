@@ -38,13 +38,15 @@ async function syncModels() {
 
       const existedBefore = await checkTableExists(tableName);
 
-      await model.sync();
+      await model.sync({ alter: true });
 
       const existedAfter = await checkTableExists(tableName);
 
       if (!existedBefore && existedAfter) {
         console.log(`${name}: Đã tạo bảng '${tableName}'.`);
-      } else if (!existedAfter) {
+      } else if (existedBefore && existedAfter) {
+        console.log(`${name}: Đã cập nhật bảng '${tableName}' nếu cần.`);
+      } else {
         console.log(`${name}: Trạng thái không xác định.`);
       }
     }

@@ -7,14 +7,15 @@ import {
   deleteJob,
 } from "../controllers/jobController.js";
 import  upload  from "../middlewares/upload.js";
+import  save  from "../middlewares/save.js";
 
 const router = express.Router();
 
 router.get("/", getAllJobs);
 router.get("/:id", getJobById);
 router.post(
-  "/multiple-docs",
-  upload.any(),
+  "/save-documents",
+  save.any(),
   createJobWithDocuments
 );
 

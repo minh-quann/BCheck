@@ -1,7 +1,7 @@
 import Job from "../models/jobModel.js";
 import JobDocument from "../models/jobdocumentModel.js";
 import fetch from "node-fetch";
-import { FormData, File } from 'formdata-node';
+import FormData from 'form-data';
 import fs from "fs/promises";
 
 export const getAllJobs = async (req, res) => {
@@ -47,7 +47,7 @@ export const checkAndComparePaymentDocument = async (req, res) => {
       formData.append('startDate', start_date);
       formData.append('endDate', end_date);
 
-     formData.append('invoice', group.invoice.buffer, {
+      formData.append('invoice', group.invoice.buffer, {
         filename: group.invoice.originalname,
         contentType: group.invoice.mimetype,
       });
@@ -57,7 +57,7 @@ export const checkAndComparePaymentDocument = async (req, res) => {
         contentType: group.receipt.mimetype,
       });
 
-      const endpoint = 'https://tr4in.app.n8n.cloud/webhook/upload';
+      const endpoint = 'https://bchecktrial.app.n8n.cloud/webhook/upload';
       try {
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -100,7 +100,7 @@ export const checkAndComparePaymentDocument = async (req, res) => {
 
 export const createJobWithDocuments = async (req, res) => {
   try {
-    const { job_name, start_date, end_date } = req.body;
+    const { job_name, start_date, end_date, job_description } = req.body;
 
     const fileGroups = {};
     req.files.forEach((file) => {
@@ -112,14 +112,25 @@ export const createJobWithDocuments = async (req, res) => {
 
       if (!fileGroups[index])
         fileGroups[index] = {};
+
       fileGroups[index][`${key}_url`] = file.path;
+      
     });
 
+    if (Array.isArray(req.body.documents)) {
+      req.body.documents.forEach((doc, index) => {
+        if (!fileGroups[index]) fileGroups[index] = {};
+        if (doc.result) fileGroups[index].result = doc.result;
+      });
+    }
+
     const documents = Object.values(fileGroups);
+
 
     const job = await Job.create(
       {
         job_name,
+        job_description,
         start_date,
         end_date,
         documents,
@@ -130,42 +141,6 @@ export const createJobWithDocuments = async (req, res) => {
     );
 
     res.status(201).json(job);
-
-    // const documents = Object.values(fileGroups);
-
-    // for (const doc of documents) {
-    //   try {
-    //     const endpoint = 'https://tr4in.app.n8n.cloud/webhook/upload'
-
-    //     const formData = new FormData();
-    //     formData.append('jobName', job_name)
-    //     formData.append('startDate', start_date)
-    //     formData.append('endDate', end_date)
-    //     // const invoiceImagePath = path.join(doc.invoice_url);
-    //     // const receiptImagePath = path.join(doc.receipt_url);
-
-    //     const invoiceImage = fs.readFileSync(doc.invoice_url);
-    //     const receiptImage = fs.readFileSync(doc.receipt_url);
-    //     formData.append('invoice', invoiceImage);
-
-    //     formData.append('receipt', receiptImage);
-
-
-    //     const response = await fetch(endpoint, {
-    //       method: 'POST',
-    //       body: formData,
-    //     })
-
-    //     const result = await response.json();
-    //     console.log('Response from n8n:', result);
-    //     // res.status(201).json(result)
-
-    //   } catch (error) {
-    //     console.error('Error sending to n8n:', error)
-    //   }
-    // }
-
-
 
   } catch (error) {
     console.error("Lỗi tạo job:", error);

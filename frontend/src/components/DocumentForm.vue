@@ -65,7 +65,7 @@
           </p>
         </div>
       </button>
-      <button type="submit" class="button" :disabled="buttonState === 'loading'">
+      <button type="submit" class="button" :disabled="buttonState === 'loading'" value="check-documents">
         <div class="outline"></div>
 
         <div v-if="buttonState === 'default'" class="state state--default">
@@ -139,6 +139,10 @@
         </div>
       </button>
 
+      <button type="submit" class="button" value="save-documents">
+        <div class="outline"></div>
+      </button>
+
 
     </div>
 
@@ -154,6 +158,7 @@ const startDate = ref('')
 const endDate = ref('')
 const panels = ref([])
 const results = ref([])
+
 
 const buttonState = ref('default')
 
@@ -177,14 +182,9 @@ function updatePanelFiles(index, files) {
   panels.value[index].receiptImage = files.receipt
 }
 
-async function submitForm() {
-  results.value = []
-  buttonState.value = 'sent'
-  await nextTick()
-  setTimeout(() => {
-    buttonState.value = 'loading'
-  }, 2000)
-  
+async function submitForm(event) {
+  const clickedButton = event.submitter;
+  const action = clickedButton?.value;
 
   const formData = new FormData()
   formData.append('job_name', jobName.value)
@@ -200,33 +200,70 @@ async function submitForm() {
     }
   });
 
-  try {
-    const endpoint = 'http://localhost:3000/api/jobs/check-documents'
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      body: formData,
-    })
+  if (action === 'check-documents') {
+    results.value = []
+    buttonState.value = 'sent'
+    await nextTick()
+    setTimeout(() => {
+      buttonState.value = 'loading'
+    }, 2000)
+    
+    try {
+      const endpoint = 'http://localhost:3000/api/jobs/check-documents'
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+      })
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok')
-    }
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (Array.isArray(result.data)) {
-      results.value = result.data
-      buttonState.value = 'received'
-      setTimeout(() => {
+      if (Array.isArray(result.data)) {
+        results.value = result.data
+        buttonState.value = 'received'
+        setTimeout(() => {
+          buttonState.value = 'default'
+        }, 2000)
+      } else {
+        console.error('Unexpected response format:', result);
         buttonState.value = 'default'
-      }, 2000)
-    } else {
-      console.error('Unexpected response format:', result);
+      }
+    } catch (error) {
+      console.error('Error sending to n8n:', error)
       buttonState.value = 'default'
     }
-  } catch (error) {
-    console.error('Error sending to n8n:', error)
-    buttonState.value = 'default'
+    return;
+  } else if (action === 'save-documents') {
+    formData.append('job_description', jobDescription.value)
+    results.value.forEach((result, index) => {
+      formData.append(`documents[${index}][result]`, result.message)
+    });
+
+    try {
+      const endpoint = 'http://localhost:3000/api/jobs/save-documents'
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+
+      const result = await response.json();
+
+  
+    } catch (error) {
+      console.error('Error sending to n8n:', error)
+      buttonState.value = 'default'
+    }
+    return;
+
   }
+  
 }
 </script>
 
