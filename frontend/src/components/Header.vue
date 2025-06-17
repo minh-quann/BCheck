@@ -8,7 +8,7 @@
       </nav>
 
       <nav class="nav-right">
-        <a href="#" class="nav-link login">Đăng nhập</a>
+       <router-link to="/login" class="nav-link login">Đăng nhập</router-link>
       </nav>
     </div>
   </header>
